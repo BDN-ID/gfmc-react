@@ -1,6 +1,6 @@
 {
   "name": "gfmc_react",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "React Native TurboModule wrapper for gfmc-sdk (BDN-ID)",
   "main": "./lib/module/index.js",
   "types": "./lib/typescript/src/index.d.ts",

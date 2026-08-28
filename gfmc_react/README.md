@@ -15,10 +15,9 @@ React Native TurboModule wrapper for BDN-ID's native SDK — Android (`gfmc-sdk`
 ### Platform yang didukung
 
 - **Android** — `gfmc-sdk`, artifact Maven `com.sltr.gfmc:gfmc-sdk:1.2.9`.
-- **iOS** — `JessicaSDK`, dari [`github.com/BDN-ID/gfmc-ios`](https://github.com/BDN-ID/gfmc-ios)
-  versi 1.16.0 (minimum **iOS 15**), sudah di-vendor langsung di dalam package ini
-  (`ios/Frameworks/JessicaSDK.xcframework`) — tidak perlu setup SPM/CocoaPods tambahan apa
-  pun di app consumer, cukup `pod install`.
+- **iOS** — `JessicaSDK` versi 1.16.0 (minimum **iOS 15**), sudah di-vendor langsung di dalam
+  package ini (`ios/Frameworks/JessicaSDK.xcframework`) — tidak perlu setup SPM/CocoaPods
+  tambahan apa pun di app consumer, cukup `pod install`.
 
 > Catatan versi: pada `gfmc-sdk` (Android) 1.2.9, host `PRODUCTION` belum bisa diakses. Selalu
 > gunakan `GfmcEnv.SANDBOX` sebagai default di development/contoh sampai ada pemberitahuan
@@ -69,7 +68,7 @@ Tidak ada langkah tambahan. `JessicaSDK.xcframework` sudah ikut ter-vendor di da
 cd ios && pod install
 ```
 
-Tidak perlu menambahkan SPM package `gfmc-ios` secara manual maupun mengubah `Podfile`.
+Tidak perlu menambahkan SPM package `JessicaSDK` secara manual maupun mengubah `Podfile`.
 Implementasi native-nya ditulis di Swift (`ios/GfmcReactImpl.swift`), bukan Objective-C, karena
 `JessicaSDK` adalah framework Swift murni (pakai `async`/`throws`) yang tidak bisa dipanggil
 langsung dari Objective-C — `ios/GfmcReact.mm` cuma jadi "kabel" tipis ke situ, lihat komentar
@@ -372,10 +371,9 @@ MIT
 ### Supported platforms
 
 - **Android** — `gfmc-sdk`, Maven artifact `com.sltr.gfmc:gfmc-sdk:1.2.9`.
-- **iOS** — `JessicaSDK`, from [`github.com/BDN-ID/gfmc-ios`](https://github.com/BDN-ID/gfmc-ios)
-  version 1.16.0 (minimum **iOS 15**), already vendored inside this package
-  (`ios/Frameworks/JessicaSDK.xcframework`) — no extra SPM/CocoaPods setup needed in the
-  consumer app, just `pod install`.
+- **iOS** — `JessicaSDK` version 1.16.0 (minimum **iOS 15**), already vendored inside this
+  package (`ios/Frameworks/JessicaSDK.xcframework`) — no extra SPM/CocoaPods setup needed in
+  the consumer app, just `pod install`.
 
 > Version note: on `gfmc-sdk` (Android) 1.2.9, the `PRODUCTION` host isn't reachable yet. Always
 > default to `GfmcEnv.SANDBOX` in development/examples until BDN-ID announces otherwise.
@@ -425,7 +423,7 @@ No extra steps. `JessicaSDK.xcframework` is already vendored inside the package
 cd ios && pod install
 ```
 
-No need to add the `gfmc-ios` SPM package manually or edit your `Podfile`. The native
+No need to add the `JessicaSDK` SPM package manually or edit your `Podfile`. The native
 implementation is written in Swift (`ios/GfmcReactImpl.swift`), not Objective-C, because
 `JessicaSDK` is a pure Swift framework (uses `async`/`throws`) that can't be called directly
 from Objective-C — `ios/GfmcReact.mm` is just a thin bridge to it, see the comments in both
