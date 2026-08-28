@@ -1,0 +1,22 @@
+import org.gradle.api.initialization.resolve.RepositoriesMode
+
+pluginManagement { includeBuild("../node_modules/@react-native/gradle-plugin") }
+plugins { id("com.facebook.react.settings") }
+extensions.configure(com.facebook.react.ReactSettingsExtension){ ex -> ex.autolinkLibrariesFromCommand() }
+dependencyResolutionManagement {
+    // WAJIB `PREFER_SETTINGS`: React Native Gradle plugin (lewat `DependencyUtils.configureRepositories`)
+    // otomatis menambahkan repo project-level (google/mavenCentral/jitpack) ke SETIAP subproject
+    // (termasuk :app), dan mode default Gradle (`PREFER_PROJECT`) membuat repo project-level itu
+    // menang telak — sehingga repo gfmc-sdk di bawah ini akan DIABAIKAN sepenuhnya kalau mode
+    // tidak diubah, dan `:app:compileDebugKotlin`/resolveConfiguration akan gagal
+    // `Could not find com.sltr.gfmc:gfmc-sdk:1.2.9` walau blok ini sudah benar.
+    repositoriesMode.set(RepositoriesMode.PREFER_SETTINGS)
+    repositories {
+        google()
+        mavenCentral()
+        maven { url 'https://raw.githubusercontent.com/BDN-ID/gfmc-sdk/gh-pages/' }
+    }
+}
+rootProject.name = 'gfmcreact.example'
+include ':app'
+includeBuild('../node_modules/@react-native/gradle-plugin')

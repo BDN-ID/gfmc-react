@@ -1,0 +1,61 @@
+buildscript {
+  ext.GfmcReact = [
+    kotlinVersion: "2.0.21",
+    minSdkVersion: 24,
+    compileSdkVersion: 36
+  ]
+
+  ext.getExtOrDefault = { prop ->
+    if (rootProject.ext.has(prop)) {
+      return rootProject.ext.get(prop)
+    }
+
+    return GfmcReact[prop]
+  }
+
+  repositories {
+    google()
+    mavenCentral()
+  }
+
+  dependencies {
+    classpath "com.android.tools.build:gradle:8.7.2"
+    // noinspection DifferentKotlinGradleVersion
+    classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:${getExtOrDefault('kotlinVersion')}"
+  }
+}
+
+
+apply plugin: "com.android.library"
+apply plugin: "kotlin-android"
+
+apply plugin: "com.facebook.react"
+
+android {
+  namespace "com.bdnid.gfmcreact"
+
+  compileSdkVersion getExtOrDefault("compileSdkVersion")
+
+  defaultConfig {
+    minSdkVersion getExtOrDefault("minSdkVersion")
+  }
+
+  compileOptions {
+    sourceCompatibility JavaVersion.VERSION_17
+    targetCompatibility JavaVersion.VERSION_17
+  }
+}
+
+// Repo maven khusus untuk gfmc-sdk. CATATAN: kalau project consumer (app) memakai
+// `dependencyResolutionManagement` di settings.gradle.kts dengan mode FAIL_ON_PROJECT_REPOS
+// (default template React Native terbaru), repositories block di sini akan DIABAIKAN. App yang
+// meng-install `gfmc_react` WAJIB juga mendaftarkan repo ini secara eksplisit di
+// `settings.gradle.kts` miliknya sendiri. Lihat README.md di root package ini untuk detail.
+repositories {
+  maven { url "https://raw.githubusercontent.com/BDN-ID/gfmc-sdk/gh-pages/" }
+}
+
+dependencies {
+  implementation "com.facebook.react:react-android"
+  implementation "com.sltr.gfmc:gfmc-sdk:1.2.9"
+}
